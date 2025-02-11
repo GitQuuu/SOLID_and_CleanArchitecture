@@ -1,4 +1,6 @@
-﻿namespace HR.LeaveManagement.Application.Contracts.Persistence;
+﻿using HR.LeaveManagement.Domain;
+
+namespace HR.LeaveManagement.Application.Contracts.Persistence;
 
 public interface IGenericRepository<T> where T : class
 {
@@ -9,17 +11,18 @@ public interface IGenericRepository<T> where T : class
     Task<T> DeleteAsync(T entity);
 }
 
-public interface IGenericRepository<T> where T : class
+public interface ILeaveTypeRepository : IGenericRepository<LeaveType>
 {
     
 }
 
-public interface IGenericRepository<T> where T : class
+public interface ILeaveAllocationRepository : IGenericRepository<LeaveAllocation>
 {
     
 }
 
-public interface IGenericRepository<T> where T : class
+public interface ILeaveRequestRepository : IGenericRepository<LeaveRequest>
 {
     
 }
+
