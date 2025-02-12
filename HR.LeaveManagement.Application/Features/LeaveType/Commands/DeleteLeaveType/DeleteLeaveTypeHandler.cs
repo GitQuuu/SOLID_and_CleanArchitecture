@@ -16,6 +16,12 @@ public class DeleteLeaveTypeHandler : IRequestHandler<DeleteLeaveTypeCommand, Un
     
     public async Task<Unit> Handle(DeleteLeaveTypeCommand request, CancellationToken cancellationToken)
     {
+        var validator = new DeleteLeaveTypeValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        if (validationResult.Errors.Count != 0)
+        {
+            throw new BadRequestException("Delete leave type validation failed", validationResult);
+        }   
         var leaveTypeToDelete = await _leaveTypeRepository.GetByIdAsync(request.Id);
         if (leaveTypeToDelete is  null)
         {
