@@ -18,5 +18,10 @@ public class LeaveTypeConfiguration : IEntityTypeConfiguration<LeaveType>
                 DateModified = DateTime.UtcNow,
             }
         );
+        
+        // database level restriction
+        builder.Property(x => x.Name)
+            .IsRequired()
+            .HasMaxLength(100);
     }
 }
