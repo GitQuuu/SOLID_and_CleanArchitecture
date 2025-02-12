@@ -16,6 +16,10 @@ public class CreateLeaveTypeCommandValidator : AbstractValidator<CreateLeaveType
             .MaximumLength(70)
             .WithMessage("{PropertyName} cannot be null or empty");
         
+        RuleFor(p => p.DefaultDays) 
+            .LessThan(100).WithMessage("{PropertyName} cannot exceed 100") 
+            .GreaterThan(1).WithMessage("{PropertyName} cannot be less than 1");
+        
         RuleFor(q => q)
             .MustAsync(LeaveTypeNameUnique)
             .WithMessage("{PropertyName} is already taken");
