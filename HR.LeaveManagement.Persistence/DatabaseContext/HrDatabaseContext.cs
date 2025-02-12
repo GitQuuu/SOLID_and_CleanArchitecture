@@ -17,18 +17,9 @@ public class HrDatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // one liner to scan all configuration in the assembly
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(HrDatabaseContext).Assembly);
 
-        modelBuilder.Entity<LeaveType>().HasData(
-            new LeaveType
-            {
-                Id = 1,
-                Name = "Vacation",
-                DefaultDays = 10,
-                DateCreated = DateTime.UtcNow,
-                DateModified = DateTime.UtcNow,
-            }
-        );
         base.OnModelCreating(modelBuilder);
     }
 
