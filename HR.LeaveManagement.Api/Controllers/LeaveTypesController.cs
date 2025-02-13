@@ -1,3 +1,5 @@
+using HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.LeaveManagement.Api.Controllers
@@ -6,11 +8,19 @@ namespace HR.LeaveManagement.Api.Controllers
     [ApiController]
     public class LeaveTypesController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public LeaveTypesController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+        
         // GET: api/<LeaveTypesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<LeaveTypeDto>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var leavesTypes = await _mediator.Send(new GetLeaveTypesQuery());
+            return leavesTypes;
         }
 
         // GET api/<LeaveTypesController>/5
