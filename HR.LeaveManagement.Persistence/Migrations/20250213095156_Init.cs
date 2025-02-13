@@ -82,7 +82,7 @@ namespace HR.LeaveManagement.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "LeaveTypes",
                 columns: new[] { "Id", "DateCreated", "DateModified", "DefaultDays", "Name" },
-                values: new object[] { 1, new DateTime(2025, 2, 13, 9, 35, 43, 499, DateTimeKind.Utc).AddTicks(491), new DateTime(2025, 2, 13, 9, 35, 43, 499, DateTimeKind.Utc).AddTicks(682), 10, "Vacation" });
+                values: new object[] { 1, new DateTime(2024, 12, 12, 10, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 12, 10, 0, 0, 0, DateTimeKind.Unspecified), 10, "Vacation" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LeaveAllocations_LeaveTypeId",
