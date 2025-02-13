@@ -1,13 +1,24 @@
 using FluentValidation;
+using HR.LeaveManagement.Application.Contracts.Persistence;
 
 namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Commands.CreateLeaveAllocation;
 
 public class CreateLeaveAllocationCommandValidator : AbstractValidator<CreateLeaveAllocationCommand>
 {
-    public CreateLeaveAllocationCommandValidator()
+    private readonly ILeaveTypeRepository _leaveTypeRepository;
+
+    public CreateLeaveAllocationCommandValidator(ILeaveTypeRepository leaveTypeRepository)
     {
-        RuleFor(x => x.NumberOfDays).NotNull();
-        RuleFor(x => x.Period).NotNull();
-        RuleFor(x => x.EmployeeId).NotNull();
+        _leaveTypeRepository = leaveTypeRepository;
+        RuleFor(x => x.LeaveTypeId)
+            .NotNull()
+            .GreaterThan(0)
+            .MustAsync(LeaveTypeExists);
+    }
+
+    private async Task<bool> LeaveTypeExists(int id, CancellationToken ctx)
+    {
+        var leaveType = await _leaveTypeRepository.GetByIdAsync(id);
+        return leaveType is not null;
     }
 }
