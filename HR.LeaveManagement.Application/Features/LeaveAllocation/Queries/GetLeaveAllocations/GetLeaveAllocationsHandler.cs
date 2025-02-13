@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using HR.LeaveManagement.Application.Contracts.Persistence;
 using MediatR;
 
