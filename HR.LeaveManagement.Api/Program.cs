@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
+app.UseMiddleware<>()
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
