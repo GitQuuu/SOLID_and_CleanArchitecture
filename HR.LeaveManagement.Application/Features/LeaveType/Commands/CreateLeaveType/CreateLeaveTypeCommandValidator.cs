@@ -9,7 +9,7 @@ public class CreateLeaveTypeCommandValidator : AbstractValidator<CreateLeaveType
 
     public CreateLeaveTypeCommandValidator(ILeaveTypeRepository leaveTypeRepository)
     {
-        _leaveTypeRepository = leaveTypeRepository;
+        
         RuleFor(x => x.Name)
             .NotNull()
             .NotEmpty()
@@ -23,6 +23,8 @@ public class CreateLeaveTypeCommandValidator : AbstractValidator<CreateLeaveType
         RuleFor(q => q)
             .MustAsync(LeaveTypeNameUnique)
             .WithMessage("{PropertyName} is already taken");
+
+        _leaveTypeRepository = leaveTypeRepository;
     }
 
     private Task<bool> LeaveTypeNameUnique(CreateLeaveTypeCommand command, CancellationToken ctx)
