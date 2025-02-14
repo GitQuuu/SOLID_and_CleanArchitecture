@@ -28,12 +28,12 @@ public class ExceptionMiddleware
     private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
     {
         HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-        dynamic problem = null;
+        dynamic? problem;
 
         switch (exception)
         {
             case BadRequestException badRequestException:   
-                problem = new CustomValidationProblemDetails
+                problem = new CustomProblemDetails
                 {
                     Title = badRequestException.Message,
                     Status = (int)statusCode,
@@ -44,12 +44,28 @@ public class ExceptionMiddleware
                 };
                 break;
             case NotFoundException notFoundException:
+                problem = new CustomProblemDetails
+                {
+                    Title = notFoundException.Message,
+                    Status = (int)statusCode,
+                    Detail = notFoundException.InnerException?.Message,
+                    Type = nameof(NotFoundException),
+                    Errors = notFoundException.ValidationErrors,
+
+                };
                 break;
             default:
+                problem = new CustomProblemDetails
+                {
+                    Title = exception.Message,
+                    Status = (int)statusCode,
+                    Type = nameof(HttpStatusCode.InternalServerError),
+                    Detail = exception.StackTrace,
+                };
                 break;
         }
 
         httpContext.Response.StatusCode = (int)statusCode;
-        await httpContext.Response.WriteAsJsonAsync(problem);
+        await HttpResponseJsonExtensions.WriteAsJsonAsync(httpContext.Response, problem);
     }
 }   

@@ -1,3 +1,5 @@
+using HR.LeaveManagement.Api.Middlewares;
+using HR.LeaveManagement.Api.Models;
 using HR.LeaveManagement.Application;
 using HR.LeaveManagement.Infrastructure;
 using HR.LeaveManagement.Persistence;
@@ -22,13 +24,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-app.UseMiddleware<>()
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
