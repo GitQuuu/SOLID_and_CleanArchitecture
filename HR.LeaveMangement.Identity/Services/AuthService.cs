@@ -50,7 +50,7 @@ public class AuthService : IAuthService
         return response;
     }
     
-    public async Task<RegistrationResponse> Register(RegistrationRequest request)
+    public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
     {
         var user = new User
         {
@@ -60,7 +60,7 @@ public class AuthService : IAuthService
                 UserName = request.Email,
             },
             FirstName = request.FirstName,
-            LastNameName = request.LastName,
+            LastName = request.LastName,
         };
         
         var result = await _userManager.CreateAsync(user, request.Password);
