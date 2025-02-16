@@ -6,9 +6,9 @@ namespace HR.LeaveManagement.Identity.Services;
 
 public class UserService : IUserService
 {
-    private readonly UserManager<User> _userManager;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public UserService(UserManager<User> userManager)
+    public UserService(UserManager<IdentityUser> userManager)
     {
         _userManager = userManager;
     }
@@ -18,10 +18,8 @@ public class UserService : IUserService
         var employees = await _userManager.GetUsersInRoleAsync("Employee");
         return employees.Select(x => new Employee
         {
-            Id = x.AspNetUser.Id,
-            Email = x.AspNetUser.Email,
-            FirstName = x.FirstName,
-            LastName = x.LastName,
+            Id = x.Id,
+            Email = x.Email,
         }).ToList();
     }
 
@@ -30,10 +28,8 @@ public class UserService : IUserService
         var employee = await _userManager.FindByIdAsync(userId);
         return new Employee
         {
-            Id = employee.AspNetUser.Id,
-            Email = employee.AspNetUser.Email,
-            FirstName = employee.FirstName,
-            LastName = employee.LastName,
+            Id = employee.Id,
+            Email = employee.Email,
         };
     }
 }
