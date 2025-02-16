@@ -50,9 +50,32 @@ public class AuthService : IAuthService
         return response;
     }
     
-    public Task<RegistrationResponse> Register(RegistrationRequest request)
+    public async Task<RegistrationResponse> Register(RegistrationRequest request)
     {
-        throw new NotImplementedException();
+        var user = new User
+        {
+            AspNetUser = new IdentityUser()
+            {
+                Email = request.Email,
+                UserName = request.Email,
+            },
+            FirstName = request.FirstName,
+            LastNameName = request.LastName,
+        };
+        
+        var result = await _userManager.CreateAsync(user, request.Password);
+        if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, "Employee");
+            return new RegistrationResponse() { UserId = user.AspNetUser.Id };
+        }
+
+        var str = new StringBuilder();
+        foreach (var error in result.Errors)
+        {
+            str.AppendFormat("{0}\n",error.Description);
+        }
+        throw new BadRequestException($"{str}");
     }
 
     private async Task<JwtSecurityToken> GenerateToken(User user)   
