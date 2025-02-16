@@ -11,9 +11,7 @@ public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
     {
         var hasher = new PasswordHasher<IdentityUser>();
         builder.HasData(
-            new User
-            {
-                AspNetUser = new IdentityUser()
+                new IdentityUser()
                 {
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                     Email = "admin@localhost.com",
@@ -23,13 +21,9 @@ public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
                     PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                     EmailConfirmed = true
                 },
-                FirstName = "System",
-                LastName = "Admin",
-             
-            },
-            new User
-            {
-                AspNetUser = new IdentityUser()
+                    
+       
+                new IdentityUser()
                 {
                     Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                     Email = "user@localhost.com",
@@ -38,10 +32,7 @@ public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
                     NormalizedUserName = "USER@LOCALHOST.COM",
                     PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                     EmailConfirmed = true
-                },
-                FirstName = "System",
-                LastName = "User",
-            }
+                }
         );
     }
 
