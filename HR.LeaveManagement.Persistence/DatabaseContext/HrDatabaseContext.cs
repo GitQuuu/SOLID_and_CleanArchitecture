@@ -1,4 +1,5 @@
-﻿using HR.LeaveManagement.Domain;
+﻿using HR.LeaveManagement.Application.Models.Identity;
+using HR.LeaveManagement.Domain;
 using HR.LeaveManagement.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public class HrDatabaseContext : DbContext
         
     }
 
+    public DbSet<User> Users { get; set; }
     public DbSet<LeaveType> LeaveTypes { get; set; }
     public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
     public DbSet<LeaveRequest?> LeaveRequests { get; set; }
