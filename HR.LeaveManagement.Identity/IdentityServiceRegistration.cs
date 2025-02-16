@@ -19,8 +19,9 @@ public static class IdentityServiceRegistration
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
         services.AddDbContext<HrLeaveIdentityManagementIdentityDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("HrDatabaseConnectionString"));
+            options.UseSqlite(configuration.GetConnectionString("HrDatabaseConnectionString"));
         });
+     
         services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<HrLeaveIdentityManagementIdentityDbContext>()
             .AddDefaultTokenProviders();
