@@ -2,7 +2,7 @@
 using HR.LeaveManagement.Application.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace HR.LeaveMangement.Identity.Services;
+namespace HR.LeaveManagement.Identity.Services;
 
 public class UserService : IUserService
 {

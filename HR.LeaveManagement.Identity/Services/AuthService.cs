@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace HR.LeaveMangement.Identity.Services;
+namespace HR.LeaveManagement.Identity.Services;
 
 public class AuthService : IAuthService
 {
