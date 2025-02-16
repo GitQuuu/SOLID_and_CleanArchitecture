@@ -23,7 +23,7 @@ public class AuthService : IAuthService
         _jwtSettings = jwtSettings.Value;
     }
     
-    public async Task<AuthResponse> IsUserLoggedIn(AuthRequest request)
+    public async Task<AuthResponse> LoginAsync(AuthRequest request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user is null)
@@ -38,6 +38,21 @@ public class AuthService : IAuthService
         }
 
         JwtSecurityToken securityToken = await GenerateToken(user);
+
+        var response = new AuthResponse
+        {
+            Id = user.AspNetUser.Id,
+            Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
+            Email = user.AspNetUser.Email,
+            UserName = user.AspNetUser.UserName,
+        };
+        
+        return response;
+    }
+    
+    public Task<RegistrationResponse> Register(RegistrationRequest request)
+    {
+        throw new NotImplementedException();
     }
 
     private async Task<JwtSecurityToken> GenerateToken(User user)   
@@ -70,8 +85,5 @@ public class AuthService : IAuthService
         return jwtSecurityToken;
     }
 
-    public Task<RegistrationResponse> Register(RegistrationRequest request)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

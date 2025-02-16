@@ -4,6 +4,6 @@ namespace HR.LeaveManagement.Application.Contracts.Identity;
 
 public interface IAuthService
 {
-    Task<AuthResponse> IsUserLoggedIn(AuthRequest request);
+    Task<AuthResponse> LoginAsync(AuthRequest request);
     Task<RegistrationResponse> Register(RegistrationRequest request);
 }
