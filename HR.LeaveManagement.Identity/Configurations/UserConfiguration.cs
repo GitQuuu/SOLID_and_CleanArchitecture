@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HR.LeaveManagement.Identity.Configurations;
 
-public class UserConfiguration : IEntityTypeConfiguration<User>
+public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<IdentityUser> builder)
     {
-        var hasher = new PasswordHasher<User>();
+        var hasher = new PasswordHasher<IdentityUser>();
         builder.HasData(
             new User
             {

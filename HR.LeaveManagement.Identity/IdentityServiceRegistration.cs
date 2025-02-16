@@ -22,7 +22,7 @@ public static class IdentityServiceRegistration
             options.UseSqlite(configuration.GetConnectionString("HrDatabaseConnectionString"));
         });
      
-        services.AddIdentity<User, IdentityRole>()
+        services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<HrLeaveIdentityManagementIdentityDbContext>()
             .AddDefaultTokenProviders();
 

@@ -12,11 +12,11 @@ namespace HR.LeaveManagement.Identity.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
     private readonly JwtSettings _jwtSettings;
 
-    public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<JwtSettings> jwtSettings)
+    public AuthService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IOptions<JwtSettings> jwtSettings)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -41,10 +41,10 @@ public class AuthService : IAuthService
 
         var response = new AuthResponse
         {
-            Id = user.AspNetUser.Id,
+            Id = user.Id,
             Token = new JwtSecurityTokenHandler().WriteToken(securityToken),
-            Email = user.AspNetUser.Email,
-            UserName = user.AspNetUser.UserName,
+            Email = user.Email,
+            UserName = user.UserName,
         };
         
         return response;
@@ -63,10 +63,10 @@ public class AuthService : IAuthService
             LastName = request.LastName,
         };
         
-        var result = await _userManager.CreateAsync(user, request.Password);
+        var result = await _userManager.CreateAsync(user.AspNetUser, request.Password);
         if (result.Succeeded)
         {
-            await _userManager.AddToRoleAsync(user, "Employee");
+            await _userManager.AddToRoleAsync(user.AspNetUser, "Employee");
             return new RegistrationResponse() { UserId = user.AspNetUser.Id };
         }
 
@@ -78,7 +78,7 @@ public class AuthService : IAuthService
         throw new BadRequestException($"{str}");
     }
 
-    private async Task<JwtSecurityToken> GenerateToken(User user)   
+    private async Task<JwtSecurityToken> GenerateToken(IdentityUser user)   
     {
         var userClaims = await _userManager.GetClaimsAsync(user);
         var roles = await _userManager.GetRolesAsync(user);
@@ -86,10 +86,10 @@ public class AuthService : IAuthService
 
         var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.AspNetUser.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.AspNetUser.Email),
-                new Claim("uid", user.AspNetUser.Id),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("uid", user.Id),
             }
             .Union(userClaims)
             .Union(roleClaims);
