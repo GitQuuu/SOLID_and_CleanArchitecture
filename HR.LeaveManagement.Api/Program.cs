@@ -10,10 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var hasher = new PasswordHasher<IdentityUser>();
-var hashedPassword = hasher.HashPassword(null, "P@ssword1");
-Console.WriteLine(hashedPassword);
-
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);

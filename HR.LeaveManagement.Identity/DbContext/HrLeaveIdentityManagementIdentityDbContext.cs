@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using HR.LeaveManagement.Application.Models.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,4 +19,6 @@ public class HrLeaveIdentityManagementIdentityDbContext : IdentityDbContext<Iden
         modelBuilder.ApplyConfigurationsFromAssembly(typeof
             (HrLeaveIdentityManagementIdentityDbContext).Assembly);
     }
+    
+    public DbSet<User> Users { get; set; }
 }

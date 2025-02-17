@@ -10,6 +10,9 @@ public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
     public void Configure(EntityTypeBuilder<IdentityUser> builder)
     {
         var hasher = new PasswordHasher<IdentityUser>();
+        var hashedPassword = hasher.HashPassword(null, "P@ssword1");
+        Console.WriteLine(hashedPassword);
+        
         // builder.HasData(
         //         new IdentityUser()
         //         {
