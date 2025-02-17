@@ -4,10 +4,15 @@ using HR.LeaveManagement.Application;
 using HR.LeaveManagement.Identity;
 using HR.LeaveManagement.Infrastructure;
 using HR.LeaveManagement.Persistence;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var hasher = new PasswordHasher<IdentityUser>();
+var hashedPassword = hasher.HashPassword(null, "P@ssword1");
+Console.WriteLine(hashedPassword);
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
