@@ -1,0 +1,27 @@
+﻿### Get all entities
+@Api_HostAddress = https://localhost:5001
+
+### Register user
+POST {{Api_HostAddress}}/api/Auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "FirstName" : "Qu",
+  "LastName" : "Dev",
+  "Email" : "DevQu@SolidCA.com",
+  "UserName" : "Qu",
+  "Password" : "Password1!"
+}
+
+### Login
+POST {{Api_HostAddress}}/api/Auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+
+  "Email" : "DevQu@SolidCA.com",
+  "Password" : "Password1!"
+
+}
