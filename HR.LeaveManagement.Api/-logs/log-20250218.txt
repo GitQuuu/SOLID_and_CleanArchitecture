@@ -1,0 +1,8 @@
+2025-02-18 00:42:17.629 +01:00 [INF] Now listening on: https://localhost:5001
+2025-02-18 00:42:17.658 +01:00 [INF] Now listening on: http://localhost:5000
+2025-02-18 00:42:17.661 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-18 00:42:17.662 +01:00 [INF] Hosting environment: Development
+2025-02-18 00:42:17.662 +01:00 [INF] Content root path: C:\Users\Quanv\Documents\_Github\SOLID_and_CleanArchitecture\HR.LeaveManagement.Api
+2025-02-18 00:42:34.036 +01:00 [INF] Leave types retrieved from database
+2025-02-18 00:42:34.092 +01:00 [INF] HTTP GET /api/LeaveTypes responded 200 in 1460.5129 ms
+2025-02-18 00:42:46.610 +01:00 [INF] HTTP GET /api/LeaveTypes/2 responded 200 in 119.2446 ms

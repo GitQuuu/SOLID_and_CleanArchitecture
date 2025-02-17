@@ -1,0 +1,21 @@
+### Get all entities
+@Api_HostAddress = https://localhost:5001
+
+GET {{Api_HostAddress}}/api/LeaveTypes
+Accept: application/json
+
+### Get single entity
+GET {{Api_HostAddress}}/api/LeaveTypes/2
+Accept: application/json
+
+### Send POST request with body as parameters
+POST https://localhost:5001/api/LeaveTypes
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Name" : "Fever",
+  "DefaultDays" : 5
+}
+
+### 
